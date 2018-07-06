@@ -1,7 +1,7 @@
 //assets：资源目录
 //components：组件目录
 //views：为页面级组件目录
-
+//我想知道我能push不，就试着加一行注释
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
