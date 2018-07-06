@@ -1,12 +1,11 @@
 <template>
     <div>
-        detail
+        top
     </div>
 </template>
 
 <script>
     export default {
-        name:'detail'
     }
 </script>
 

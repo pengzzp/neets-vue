@@ -1,18 +1,18 @@
 <template>
   <div>
-    <!-- 公共头部 -->
-    <header></header>
+    <!-- 头部 -->
+    <top></top>
     <!-- 主界面 -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import Main from '@/components/common/main.vue'
+import Top from '../components/common/top.vue'
   export default {
     name:'index',
-    comments:{
-      // Main
+    components:{
+      Top
     }
   }
 </script>
