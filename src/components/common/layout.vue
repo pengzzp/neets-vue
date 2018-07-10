@@ -1,7 +1,15 @@
 <template>
     <div>
         <!-- 导航 -->
-        <nav></nav>
+        <nav>
+            <router-link 
+            v-for="(v,i) of navlist" 
+            :key="i"
+            :to="{path:v.path}"
+            active-class="active">
+            {{ v.name }}
+            </router-link>
+        </nav>
         
         <!-- 切换的页面 -->
         <div>
@@ -12,10 +20,51 @@
 
 <script>
     export default {
-        name:'layout'
+        name:'layout',
+        data() {
+            return {
+                navlist:[
+                    {
+                        name:'首页',
+                        path:'/index/layout/home'
+                    },
+                    {
+                        name:'订阅',
+                        path:'/index/layout/subcriber'
+                    },
+                    {
+                        name:'分类',
+                        path:'/index/layout/category'
+                    },
+                    {
+                        name:'我',
+                        path:'/index/layout/my'
+                    }
+                ]
+            }
+        },
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+@import '@/yo/core/reset.scss';
+    nav{
+        width: 100%;
+        height: .4rem;
+        line-height: .4rem;
+        background-color: #f4f5f6;
+        box-shadow: 0 1px 3px #aaa;
+        font-size: .16rem;
+        @include flexbox();
+        a{
+            width: 25%;
+            text-align: center;
+            color:#888;
+            &.active{
+                color: #ffa200;
+                font-weight: 700;
+                border-bottom: .02rem solid #ffa200;
+            }
+        }
+    }
 </style>
