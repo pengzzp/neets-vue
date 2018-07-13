@@ -6,7 +6,4 @@
 
 <style lang="scss">
 @import './yo/core/reset.scss';
-@import './yo/core/config.scss';
-@import './yo/core/extra.scss';
-
 </style>
