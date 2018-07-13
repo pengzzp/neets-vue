@@ -23,7 +23,7 @@ export default new Router({
     },
     {
       path: '/index',
-      name: 'index',
+      name: 'index', 
       component: index,
       redirect:'/index/layout',
       children:[//第二层路由的界面装载在第一层路由界面中的router-view中,例：index.vue中
