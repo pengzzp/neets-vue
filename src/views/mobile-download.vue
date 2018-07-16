@@ -135,7 +135,7 @@ export default {
           width: 100%;
           .mint-swipe-item {
             height: 6.67rem !important;
-            position: relative;
+            position: absolute;
             .card_bg {
               width: 100%;
               height: 100%;
