@@ -2,7 +2,7 @@
   <div class="container">
     <main>
       <div class="slide">
-        <mt-swipe>
+        <mt-swipe :auto="3000" :show-indicators="false">
         <mt-swipe-item v-for="item of showList" :key="item.id" >
           <div
           class="card_bg"
@@ -153,7 +153,7 @@ export default {
               border-radius: 10px;
               left: 10%;
               top: 6%;
-              overflow: hidden;
+              // overflow: hidden;
               display: flex;
               flex-direction: column;
               .card_box {
