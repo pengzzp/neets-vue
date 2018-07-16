@@ -2,7 +2,7 @@
   <div class="container">
     <main>
       <div class="slide">
-        <mt-swipe :auto="3000" :show-indicators="false">
+        <mt-swipe :auto="0" :stopPropagation="true" :continuous="false">
         <mt-swipe-item v-for="item of showList" :key="item.id" >
           <div
           class="card_bg"
@@ -208,9 +208,7 @@ export default {
           }
         }
         .mint-swipe-indicators {
-          position: absolute !important;
-          bottom: 10% !important;
-          height: 0.05rem !important;
+          bottom: 20% ;
         }
       }
     }
