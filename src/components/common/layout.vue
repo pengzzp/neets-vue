@@ -10,7 +10,6 @@
             {{ v.name }}
             </router-link>
         </nav>
-        
         <!-- 切换的页面 -->
         <div>
         <router-view></router-view>
@@ -40,7 +39,8 @@
                         name:'我',
                         path:'/index/layout/my'
                     }
-                ]
+                ],
+                isloading:true
             }
         },
     }

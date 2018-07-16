@@ -17,21 +17,21 @@
             </section>
 
             <div>
-                <a>
+                <router-link to="/index/layout/home" @click.native="pop()">
                     <i style="background-position: -2px -281px;"></i>
                     <span>首页</span>
-                </a>
-                <a>
+                </router-link>
+                <router-link to="/index/layout/category" @click.native="pop()">
                     <i style="background-position: -31px -281px;"></i>
                     <span>分类检索</span>
-                </a>
+                </router-link>
             </div>
             <div>
-                <a>
+                <router-link to="/index/layout/subcriber" @click.native="pop()">
                     <i style="background-position: -62px -282px;"></i>
                     <span>我的订阅</span>
                     <mt-badge type="error" size="small" class="number">1</mt-badge>
-                </a>
+                </router-link>
                 <a>
                     <i style="background-position: -91px -282px;"></i>
                     <span>已看完</span>
@@ -78,8 +78,7 @@
         },
         methods:{
             pop(){
-                this.popupVisible=this.popupVisible==true?false:true;
-                
+                this.popupVisible=!this.popupVisible; 
             }
         }
     }
