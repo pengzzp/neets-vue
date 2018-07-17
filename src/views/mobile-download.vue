@@ -1,16 +1,17 @@
 <template>
   <div class="container">
     <main>
-      <div class="slide">
-        <mt-swipe :auto="0" :stopPropagation="true" :continuous="false">
+      <div class="slide" >
+        
+        <mt-swipe :auto="0" :stopPropagation="true" :continuous="false" @change="handleChange">
         <mt-swipe-item v-for="item of showList" :key="item.id" >
-          <div
+          <!-- <div
           class="card_bg"
           :style="{
             'background-image': item.bgUrl,
             }"
-            >
-            </div>
+            > 
+             </div> -->
             <div class="card">
               <div class="card_box">
                 <div class="card_title">
@@ -32,6 +33,13 @@
             </div>
           </mt-swipe-item>
         </mt-swipe>
+        <div
+          class="card_bg"
+          :style="{
+            'background-image': bg_img[index],
+          }"
+        >
+        </div>
       </div>
     <!-- <div class="pagination">
     </div> -->
@@ -41,7 +49,6 @@
 </template>
 
 <script>
-// import $ from "axios";
 import { Swipe, SwipeItem } from "mint-ui";
 export default {
   data() {
@@ -103,6 +110,13 @@ export default {
             line2: "精彩观剧体验的开始"
           }
         }
+      },
+      index:0,
+      bg_img:{
+        0:'url("https://neets.cc/mobile-download/index_files/bg_1.png?max_age=2592000")',
+        1:'url("https://neets.cc/mobile-download/index_files/bg_2.png?max_age=2592000")',
+        2:'url("https://neets.cc/mobile-download/index_files/bg_3.png?max_age=2592000")',
+        3:'url("https://neets.cc/mobile-download/index_files/bg_4.png?max_age=2592000")',
       }
     };
   },
@@ -111,9 +125,11 @@ export default {
     [SwipeItem.name]: SwipeItem
   },
   methods: {
-    // $
+    handleChange(index){
+      this.index = index
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -126,7 +142,21 @@ export default {
     .slide {
       height: 100%;
       z-index: 2;
+      // position: absolute;
+      .card_bg {
+        position: absolute;
+        top: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        > img {
+          width: 3.73rem;
+          height: 6.67rem;
+          background-size: cover;
+        }
+      }
       .mint-swipe {
+        z-index: 1;
         height: 6.67rem !important;
         position: relative;
         .mint-swipe-items-wrap {
@@ -135,16 +165,16 @@ export default {
           width: 100%;
           .mint-swipe-item {
             height: 6.67rem !important;
-            position: relative;
-            .card_bg {
-              width: 100%;
-              height: 100%;
-              > img {
-                width: 3.73rem;
-                height: 6.67rem;
-                background-size: cover;
-              }
-            }
+            position: absolute;
+            // .card_bg {
+            //   width: 100%;
+            //   height: 100%;
+            //   > img {
+            //     width: 3.73rem;
+            //     height: 6.67rem;
+            //     background-size: cover;
+            //   }
+            // }
             .card {
               position: absolute;
               width: 80%;
@@ -207,8 +237,8 @@ export default {
             }
           }
         }
-        .mint-swipe-indicators {
-          bottom: 20% ;
+        .mint-swipe-indicators{
+          bottom: 12% !important;
         }
       }
     }
