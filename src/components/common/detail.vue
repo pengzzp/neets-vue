@@ -1,76 +1,200 @@
 <template>
-    <div class="detaiContainer">
-        <nav>
-            <div>
-                <span>下载app，解锁更多内容</span><img src="../../assets/images/more.png" alt="">
-            </div>
-        </nav>
-        <main>
-            <!-- <div
-                class="bgImg"
-                :style="{
-                    backfgroundImage:'url(imgUrl.large)',
-                    'filter':'25px',
-                    }"
-            ></div> -->
-            <p class="title">{{detail.title}}</p>
+    <div class="detailContainer">
+      <!-- 下载app -->
+      <nav>
+        <div>
+          <span>下载app，解锁更多内容</span><router-link to="/mobile-download"><img src="../../assets/images/more.png" alt=""></router-link>
+        </div>
+      </nav>
+      <!-- 正文 -->
+      <main>
+        <div class="content">
+          <!-- 背景模糊图 -->
+          <div class="bgImg">
+            <img src="../../assets/images/large.jpg" alt="">
+          </div>
+          <p class="title">{{detail.title}}</p>
+          <!-- 中间区块 -->
+          <div class="middle">
             <div class="small_img">
-                <img :src="imgUrl.large" alt="">
+              <img src="../../assets/images/large.jpg" alt="">
             </div>
             <div class="info">
-                <p>评分：{{detail.rating}}</p>
-               <p> 订阅：{{detail.hot}}</p>
-               <p> 更新至：{{detail.currentSeries}}集/共{{detail.episodesCount}}集</p>
-               <p :isfinished="isfinished">{{isfinished}}</p>
+              <p>评分：{{detail.rating}}</p>
+              <p> 订阅：{{detail.hot}}</p>
+              <p> 更新至：{{detail.currentSeries}}集/共{{detail.episodesCount}}集</p>
+              <p :isfinished="isfinished">{{isfinished}}</p>
+              <div class="btns">
+                <mt-button type="primary">+ 订阅</mt-button>
+                <mt-button type="primary">...</mt-button>
+              </div>
             </div>
-            <article class="summart">
-                简介
-                <!-- {{detail.summary}} -->
-            </article>
-        </main>
+          </div>
+          <!-- 简介 -->
+          <article>
+            <p class="summary_title">简介</p>
+            <div class="summary">
+              {{detail.summary}}
+            </div>
+            <div class="nomore">
+              没有更多了
+            </div>
+          </article>
+          <div class="collection">
+            <p>合集</p>
+            <div class="collection_hide">
+              <div class="collection_show">
+                <ul v-for="collection of collections" :key="collection.id">
+                  <div>
+                    <li>
+                      <p>
+                        <span>{{collection.domainName}}</span>&nbsp;&nbsp;<span>{{collection.videoName}}</span><i>{{collection.tags}}</i>
+                      </p>
+                    </li>
+                  </div>
+                </ul>
+                <p @click="loadMoreCollections" v-if="isCollectionsShow">显示更多</p>
+              </div>
+            </div>
+          </div>
+          <div class="series">
+            <p>分集</p>
+            <div class="series_hide">
+              <div class="series_show">
+                <ul v-for="num of series" :key="num.id">
+                  <div>
+                    <li>
+                      <div>
+                        <span>{{num.name}}</span>
+                      </div>
+                    </li>
+                    <div>
+                        <input type="checkbox" :id="num.id">
+                        <label :for="num.id"></label>
+                        </div>
+                    </div>
+                </ul>
+                <p @click="loadMoreSeries" v-if="isSeriesShow">显示更多</p>
+              </div>
+            </div>
+          </div>
+          <div class="search">
+            <h4>Neets全网搜索</h4>
+            <div class="searchList">
+              <div class="searchItem" v-for="(search,index) of searchList.list" :key="index">
+                <div class="lineOne">
+                  <span>{{search.name}}</span>
+                  <i>{{search.label}}</i>
+                </div>
+                <div class="lists" v-for="searchItem of search.themes" :key="searchItem.themeId">
+                  <a href="javascript:void(0)">
+                    <div>{{searchItem.themeName}}&nbsp;{{searchItem.auxiliaryInfo}}</div>
+                    <div><b>{{searchItem.seriesCount}}</b></div>
+                  </a>
+                </div>
+                <div class="searchMore">
+                  <span>{{search.name}}</span>更多搜索结果››
+                </div>
+              </div>
+              <div class="loadMoreSearch">
+                <a href="javascript:void(0)">
+                  查看全部{{searchList.total}}条结果››
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 </template>
 
 <script>
-import $ from 'axios'
+import $ from "axios";
+import { Button } from "mint-ui";
 export default {
   name: "detail",
   data() {
     return {
-        detail:{},
-        imgUrl:'',
+      detail: {},
+      imgUrl: "../../assets/images/large.jpg",
+      collections:{},
+      series:{},
+      searchList:{},
+      isCollectionsShow:true,
+      isSeriesShow:true,
+    };
+  },
+  components: {
+    [Button.name]: Button
+  },
+  computed: {
+    isfinished() {
+      if (this.detail.state == 1) {
+        return "已完结";
+      } else {
+        return this.detail.refreshDesc + "更新";
+      }
+    },
+    getDate(){
+      return new Date().getTime();
     }
   },
-  computed:{
-      isfinished(){
-          if(this.detail.state == 1){
-               return '已完结'
-          }else{
-              return this.detail.refreshDesc + '更新'
-          }
-           
-        
-      }
+  methods: {
+    // --------------点击[显示更多]，显示更多视频合集
+    loadMoreCollections(){
+      $.get("https://neets.cc/api/videoSource/list/2/5?adapteType=0&enable=3&num=-1&videoId=e69378d2aa6e403eb0ae8eba79258ee2&filter=1").then(result => {
+        let res = result.data.data.list;
+        this.collections = this.collections.concat(res)
+        this.isCollectionsShow = false
+      })
+    },
+    // --------------点击[显示更多]，显示更多视频分集
+    loadMoreSeries(){
+      $.get("https://neets.cc/api/videoSeries/list/e69378d2aa6e403eb0ae8eba79258ee2/2/10?enable=3&").then(result => {
+        let res = result.data.data.list;
+        this.series = this.series.concat(res)
+        this.isSeriesShow = false
+      })
+    },
   },
-  methods:{
-
-  },
-  mounted(){
-    $.get('api/video/detail/e69378d2aa6e403eb0ae8eba79258ee2')
-        .then((result)=>{
-            this.detail = result.data.data
-            this.imgUrl = JSON.parse(result.data.data.photos)
-            console.log(typeof this.imgUrl.large)
-        })
+  mounted() {
+    // --------------视频详细信息
+    $.get("api/video/detail/e69378d2aa6e403eb0ae8eba79258ee2").then(result => {
+      this.detail = result.data.data;
+      this.imgUrl = JSON.parse(result.data.data.photos);
+    });
+    // --------------视频合集
+    $.get("https://neets.cc/api/videoSource/list/1/5?adapteType=0&enable=3&num=-1&videoId=e69378d2aa6e403eb0ae8eba79258ee2&filter=1").then(result => {
+      this.collections = result.data.data.list;
+    })
+    // --------------视频分集
+    $.get("https://neets.cc/api/videoSeries/list/e69378d2aa6e403eb0ae8eba79258ee2/1/10?adapteType=0&enable=3").then(result => {
+      this.series = result.data.data.list;
+    })
+    // --------------全网搜索
+    $.get("https://neets.cc/api/full-text/videos/e69378d2aa6e403eb0ae8eba79258ee2/grab-datas?pageNo=1&pageSize=6&seriesSize=1&themeSize=3&filter=1").then(result => {
+      this.searchList = result.data.data;
+      console.log(this.searchList)
+    })
   }
-
 };
 </script>
 
 <style lang="scss" scoped>
-.detaiContainer {
+@import '@/yo/core/reset.scss';
+.detailContainer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: #f4f5f6;
+  @include flexbox();
+  flex-direction: column;
   nav {
     background: white;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    height: 0.315rem;
     div {
       height: 0.315rem;
       padding-left: 0.16rem;
@@ -90,53 +214,353 @@ export default {
       }
     }
   }
-  main{
-    //   position: relative;
-    float: left;
+  main {
+    @include flex();
+    flex-direction: column;
+    position: absolute;
+    top: .315rem;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    .content{
+      width: 100%;
+      height: 30rem;
+      overflow-y: scroll;
+      @include flexbox();
+      flex-direction: column;
       .bgImg{
-        //   position: absolute;
-          width: 100%;
-          height: 223.5px;
-          opacity: .8;
-          z-index: 0;
-      }
-      .title{
-        //   position: absolute;
-        //   top: 0;
+        position: absolute;
+        height: 1.85rem;
+        width: 100%;
+        top: 0;
+        z-index: 0;
+        overflow: hidden;
+        filter: blur(25px);
+        opacity: .8;
+        &::before{
+          content: " ";
+          background: black;
+          opacity: 0.3;
           z-index: 1;
-          color: white;
+          position: absolute;
+          left: 0;
+          top: 0;
           width: 100%;
-          font-size: .2rem;
-          line-height: .27rem;
-          padding: .115rem .15rem .1rem;
+          height: 100%;
+        }
+        img{
+          width: 100%;
+        }
       }
-      .small_img{
-          float: left;
-          z-index: 100;
+      .title {
+        z-index: 2;
+        color: white;
+        width: 100%;
+        font-size: 0.2rem;
+        line-height: 0.27rem;
+        padding: 0.115rem 0.15rem 0.1rem;
+      }
+      .middle{
+        z-index: 2;
+        @include flexbox();
+        flex-direction: row;
+        .small_img{
           width: 1.25rem;
           height: 1.65rem;
           overflow: hidden;
           border: .03rem solid white;
           border-radius: .05rem;
-          background: #f4f5f6;
-          box-shadow: 0 2px 4px #777;
           margin-left: .15rem;
           img{
-              width: auto;
-              min-width: 100%;
-              height: 100%;
+            width:100%;
+            height: 100;
+            ;
           }
+        }
+        .info{
+          color: white;
+          padding-left: 0.15rem;
+          padding-bottom: 0.15rem;
+          padding-top: 0.1rem;
+          font-size: 0.14rem;
+          line-height: .2rem;
+          @include flexbox();
+          flex-direction: column;
+          .btns{
+            padding-top: 0.23rem;
+            margin-right: 0.15rem;
+            padding-bottom: 0.1rem;
+            width: 100%;
+            .mint-button {
+              background: #59c4f9;
+              height: 0.325rem;
+              &:nth-of-type(1) {
+                width: 1.64rem;
+                margin-right: 0.05rem;
+                font-size: 0.16rem;
+              }
+              &:nth-of-type(2) {
+                line-height: 0.325rem;
+                font-size: 0.16rem;
+                width: .325rem;
+              }
+            }
+          }
+        }
       }
-      .info{
-        //   position: absolute;
-        //   right: 0;
-        float: right;
-        padding-left: .2rem;
-        padding-bottom: .15rem;
-        padding-top: .1rem;
+      article{
+        margin-top: .125rem;
+        .summary_title{
+          font-size: .16rem;
+          color: #555;
+          margin-left: .15rem;
+          margin-top: .3rem;
+          margin-bottom: .05rem;
+        }
+        .summary{
+          width: 100%;
+          margin: 0 auto;
+          margin-top: .12rem;
+          padding-left: .15rem;
+          padding-right: .15rem;
+          color: #888;
+          font-size: .12rem;
+        }
+        .nomore{
+          text-align: center;
+          color: #888;
+          margin: .15rem;
+          display: block;
+          font-size: .13rem;
+          line-height: 1;
+        }
+      }
+      .collection{
+        width: 100%;
+        >p{
+          color: #555;
+          margin-left: .15rem;
+          margin-bottom: .05rem;
+          font-size: .16rem;
+        }
+        .collection_hide{
+          width: 100%;
+          .collection_show{
+            @include flexbox();
+            flex-direction: column;
+            width: 100%;
+            height: auto;
+            ul{
+              div{
+                li{
+                    border: 1px solid #eee;
+                    margin: .1rem .15rem 0;
+                    background-color: #fff;
+                    border-radius: .05rem;
+                    color: #555;
+                    height: .4rem;
+                  >p{
+                    position: relative;
+                    float: left;
+                    margin-left: .15rem;
+                    margin-top: .12rem;
+                    line-height: 1;
+                    width: 100%;
+                    padding-right: 50px;
+                    font-size: .14rem;
+                    color: #555;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    span{
+                      line-height: 1;
+                      margin-top: .12rem;
+                      font-size: .14rem;
+                      color: #555;
+                    }
+                    i{
+                      font-style: normal;
+                      margin-left: 10px;
+                      color: #3f7cc1;
+                      font-size: .12rem;
+                    }
+                  }
+                }
+              }
+            }
+            p{
+              margin-top: .1rem;
+              text-align: center;
+              font-size: .13rem;
+              line-height: 1;
+              color: #3f7cc1;
+            }
+          }
+        }
+      }
+      .series{
+        margin-top: .25rem;
+        width: 100%;
+        height: auto;
+        >p{
+          color: #555;
+          margin-left: .15rem;
+          margin-bottom: .05rem;
+          font-size: .16rem;
+        }
+        .series_hide{
+          width: 100%;
+          .series_show{
+            @include flexbox();
+            flex-direction: column;
+            width: 100%;
+            height: auto;
+            ul{
+              >div{
+                position: relative;
+                li{
+                  // position: absolute;
+                  border: 1px solid #eee;
+                  margin: .1rem .15rem 0;
+                  background-color: #fff;
+                  border-radius: .05rem;
+                  color: #555;
+                  height: .4rem;
+                  >div{
+                    text-align: left;
+                    margin-left: .15rem;
+                    margin-top: .12rem;
+                    line-height: 1;
+                    width: 100%;
+                    padding-right: 50px;
+                    font-size: .14rem;
+                    color: #555;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    span{
+                      line-height: 1;
+                      margin-left: .35rem;
+                      margin-top: .12rem;
+                      font-size: .14rem;
+                      color: #555;
+                    }
+                  }
+                }
+                div{
+                  position: absolute;
+                  right: 0;
+                  top: 0;
+                      input{
+                        display: none;
+                        
+                      }
+                      label{
+                        border: 2px solid #aaa;
+                        margin-top: .1rem;
+                        border-radius: 3px;
+                        width: 20px;
+                        height: 20px;
+                        display: inline-block;
+                        box-sizing: border-box;
+                        position: relative;
+                        margin-right: .25rem;
+                        vertical-align: middle;
+                      }
+                    }
+              }
+            }
+            p{
+              margin-top: .1rem;
+              text-align: center;
+              font-size: .13rem;
+              line-height: 1;
+              color: #3f7cc1;
+            }
+          }
+        }
+      }
+      .search{
+        padding: 0 .15rem;
+        margin-top: .3rem;
         font-size: .16rem;
-        color: white;
+        h4{
+          color: #111;
+          margin-bottom: .15rem;
+          font-weight: 400;
+        }
+        .searchList{
+          @include flexbox();
+          flex-direction: column;
+          .searchItem{            
+            background: #fff;
+            margin-bottom: .1rem;
+            font-size: .12rem;
+            padding: .075rem .15rem;
+            .lineOne{
+              padding: .085rem 0;
+              line-height: 1;
+              font-size: .12rem;
+              color: #111;
+              border-bottom: .5px solid #ddd;
+              i{
+                font-style: normal;
+                margin-left: .05rem;
+                color: #3f7cc1;
+              }
+              
+            }
+            .lists{
+              padding: .075rem 0;
+              line-height: .2rem;
+              font-size: .13rem;
+              a{
+                color: #3f7cc1;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 1.3;
+                @include flexbox();
+                flex-direction: row;
+                justify-content: space-between;
+                // align-items: flex-end;
+                div{
+                  &:nth-of-type(2){
+                    b{
+                      font-weight: 400;
+                      font-size: .11rem;
+                      display: inline-block;
+                      padding: .02rem .06rem;
+                      line-height: 1;
+                      background: #59c4f9;
+                      border-radius: 3px;
+                      color: #fff;
+                      margin-top: .01rem;
+                    }
+                  }
+                }
+              }
+            }
+            .searchMore{
+              font-size: .12rem;
+              color: #3f7cc1;
+              text-align: right;
+              padding: .075rem 0;
+            }
+          }
+        }
+        .loadMoreSearch{
+          text-align: center;
+          margin-top: .15rem;
+          font-size: .13rem;
+          line-height: 1;
+          a{
+          color: #3f7cc1;
+
+          }
+        }
       }
+    }
   }
 }
+
 </style>

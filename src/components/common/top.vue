@@ -94,6 +94,7 @@
         height: .4rem;
         background: #ffde02;
         width: 100%;
+        z-index: 100;
         .left{
             @include flexbox();
             flex-direction: row;
