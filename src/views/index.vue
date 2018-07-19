@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="index">
     <!-- 头部 -->
-    <top></top>
+    <Top></Top>
     <!-- 主界面 -->
     <router-view></router-view>
   </div>
@@ -13,10 +13,18 @@ import Top from '../components/common/top.vue'
     name:'index',
     components:{
       Top
+    },
+    mounted(){
+      this.$store.dispatch('get_navlist')
     }
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.index{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 </style>
