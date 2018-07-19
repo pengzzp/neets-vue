@@ -87,13 +87,13 @@
 <style lang="scss" scoped>
 @import '@/yo/core/reset.scss';
     header{
-        height: .4rem;
-        background: #ffde02;
-        width: 100%;
         @include flexbox();
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        height: .4rem;
+        background: #ffde02;
+        width: 100%;
         .left{
             @include flexbox();
             flex-direction: row;
