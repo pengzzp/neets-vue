@@ -9,7 +9,7 @@
             <!-- <div
                 class="bgImg"
                 :style="{
-                    'backfground-image':'url(imgUrl.large)',
+                    backfgroundImage:'url(imgUrl.large)',
                     'filter':'25px',
                     }"
             ></div> -->
