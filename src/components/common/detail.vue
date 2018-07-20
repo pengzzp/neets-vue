@@ -11,13 +11,14 @@
         <div class="content">
           <!-- 背景模糊图 -->
           <div class="bgImg">
-            <img src="../../assets/images/large.jpg" alt="">
+            <img :src="imgUrl.large" alt="">
           </div>
           <p class="title">{{detail.title}}</p>
           <!-- 中间区块 -->
           <div class="middle">
             <div class="small_img">
-              <img src="../../assets/images/large.jpg" alt="">
+              <!-- <img :src="imgUrl.large" alt="" v-show="imgCondition"> -->
+              <img :src="defaultImg" alt="">
             </div>
             <div class="info">
               <p>评分：{{detail.rating}}</p>
@@ -40,6 +41,7 @@
               没有更多了
             </div>
           </article>
+          <!-- 合集 -->
           <div class="collection">
             <p>合集</p>
             <div class="collection_hide">
@@ -57,6 +59,7 @@
               </div>
             </div>
           </div>
+          <!-- 分集 -->
           <div class="series">
             <p>分集</p>
             <div class="series_hide">
@@ -78,6 +81,7 @@
               </div>
             </div>
           </div>
+          <!-- 全网搜索 -->
           <div class="search">
             <h4>Neets全网搜索</h4>
             <div class="searchList">
@@ -103,6 +107,22 @@
               </div>
             </div>
           </div>
+          <!-- 新剧推荐 -->
+          <div class="newDrama">
+            <h4>新剧推荐</h4>
+            <List v-if="isShowlist" :listdata="listdata" style="background:transparent"/>
+            <p><router-link to="/index/layout/category">查看全部››</router-link></p>
+          </div>
+          <div class="neetsInfo">
+            <div class="infoTitle">关注 Neets 公众号，新剧更新抢鲜看</div>
+            <div class="infoImg">
+              <img src="https://neets.cc/script/app/resource/images/erweima.jpg" alt="">
+            </div>
+            <div class="wechat">
+              <span>公众号 neets</span><span>微信号 neetscc</span>
+            </div>
+            <div class="browser">浏览器访问 www.neets.cc</div>
+          </div>
         </div>
       </main>
     </div>
@@ -111,21 +131,34 @@
 <script>
 import $ from "axios";
 import { Button } from "mint-ui";
+import List from '../common/list.vue';
 export default {
   name: "detail",
+  props:{
+    id: {
+        type: String,
+        required: true
+      },
+  },
   data() {
     return {
       detail: {},
-      imgUrl: "../../assets/images/large.jpg",
+      defaultImg:"../../assets/images/loadingimg.jpg",
+      imgUrl: {},
       collections:{},
       series:{},
       searchList:{},
+      listdata:[],
       isCollectionsShow:true,
       isSeriesShow:true,
+      isShowlist:true,
+      isNewDramaShow:true,
+      imgCondition:true,
     };
   },
   components: {
-    [Button.name]: Button
+    [Button.name]: Button,
+    List,
   },
   computed: {
     isfinished() {
@@ -142,7 +175,7 @@ export default {
   methods: {
     // --------------点击[显示更多]，显示更多视频合集
     loadMoreCollections(){
-      $.get("https://neets.cc/api/videoSource/list/2/5?adapteType=0&enable=3&num=-1&videoId=e69378d2aa6e403eb0ae8eba79258ee2&filter=1").then(result => {
+      $.get("https://neets.cc/api/videoSource/list/2/5?adapteType=0&enable=3&num=-1&videoId="+this.id+"&filter=1").then(result => {
         let res = result.data.data.list;
         this.collections = this.collections.concat(res)
         this.isCollectionsShow = false
@@ -150,7 +183,7 @@ export default {
     },
     // --------------点击[显示更多]，显示更多视频分集
     loadMoreSeries(){
-      $.get("https://neets.cc/api/videoSeries/list/e69378d2aa6e403eb0ae8eba79258ee2/2/10?enable=3&").then(result => {
+      $.get("https://neets.cc/api/videoSeries/list/"+this.id+"/2/10?enable=3&").then(result => {
         let res = result.data.data.list;
         this.series = this.series.concat(res)
         this.isSeriesShow = false
@@ -159,23 +192,28 @@ export default {
   },
   mounted() {
     // --------------视频详细信息
-    $.get("api/video/detail/e69378d2aa6e403eb0ae8eba79258ee2").then(result => {
+    $.get("api/video/detail/"+this.id+"").then(result => {
       this.detail = result.data.data;
       this.imgUrl = JSON.parse(result.data.data.photos);
+      console.log(this.imgUrl)
     });
     // --------------视频合集
-    $.get("https://neets.cc/api/videoSource/list/1/5?adapteType=0&enable=3&num=-1&videoId=e69378d2aa6e403eb0ae8eba79258ee2&filter=1").then(result => {
+    $.get("https://neets.cc/api/videoSource/list/1/5?adapteType=0&enable=3&num=-1&videoId="+this.id+"&filter=1").then(result => {
       this.collections = result.data.data.list;
     })
     // --------------视频分集
-    $.get("https://neets.cc/api/videoSeries/list/e69378d2aa6e403eb0ae8eba79258ee2/1/10?adapteType=0&enable=3").then(result => {
+    $.get("https://neets.cc/api/videoSeries/list/"+this.id+"/1/10?adapteType=0&enable=3").then(result => {
       this.series = result.data.data.list;
     })
     // --------------全网搜索
-    $.get("https://neets.cc/api/full-text/videos/e69378d2aa6e403eb0ae8eba79258ee2/grab-datas?pageNo=1&pageSize=6&seriesSize=1&themeSize=3&filter=1").then(result => {
+    $.get("https://neets.cc/api/full-text/videos/"+this.id+"/grab-datas?pageNo=1&pageSize=6&seriesSize=1&themeSize=3&filter=1").then(result => {
       this.searchList = result.data.data;
-      console.log(this.searchList)
     })
+    // 新剧推荐
+    $.get("https://neets.cc/api/video/search/1/4?odder=2").then(result => {
+      this.listdata = result.data.data.list
+    }
+    )
   }
 };
 </script>
@@ -224,7 +262,8 @@ export default {
     overflow-y: scroll;
     .content{
       width: 100%;
-      height: 30rem;
+      min-height: 10rem;
+      height: auto;
       overflow-y: scroll;
       @include flexbox();
       flex-direction: column;
@@ -557,6 +596,63 @@ export default {
           color: #3f7cc1;
 
           }
+        }
+      }
+      .newDrama{
+        h4{
+          margin-top: .3rem;
+          color: #555;
+          margin-left: .15rem;
+          margin-bottom: .05rem;
+          font-size: .16rem;
+        }
+
+        p{
+          margin-top: .2rem;
+          text-align: center;
+          font-size: .13rem;
+          line-height: 1;
+          a{
+            color: #3f7cc1;
+          }
+        }
+      }
+      .neetsInfo{
+        width: 3rem;
+        margin: .3rem auto;
+        color: #888;
+        text-align: center;
+        .infoTitle{
+          font-size: .14rem;
+          line-height: .2rem;
+          margin: 0 auto .125rem;
+        }
+        .infoImg{
+          width: 100%;
+          box-shadow: 0 1px 4px #b0b0b0;
+          border-radius: .02rem;
+          margin-bottom: .12rem;
+          overflow: hidden;
+          img{
+            width: 100%;
+          }
+        }
+        .wechat{
+          font-size: .12rem;
+          span{
+            display: inline-block;
+            width: .9rem;
+            line-height: .15rem;
+            font-size: .12rem;
+            &:nth-of-type(2){
+              margin-left: .2rem;
+            }
+          }
+        }
+        .browser{
+          margin-top: .06rem;
+          font-size: .12rem;
+          line-height: .15rem;
         }
       }
     }
