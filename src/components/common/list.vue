@@ -31,6 +31,8 @@
         },
         updated(){
             // console.log(this.listdata)
+           
+               
         }
         
     }
