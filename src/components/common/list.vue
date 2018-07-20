@@ -51,6 +51,7 @@
         img{
             width: .68rem;
             height: .9rem;
+            border-radius:5px;
         }
         .info{
             width: 1.96rem;
