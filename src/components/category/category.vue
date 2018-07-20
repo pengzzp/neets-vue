@@ -22,6 +22,10 @@
             <img src="../../assets/images/null.gif" alt="">
             <p>什么都没找到哦</p>
         </div>
+        <!-- 显示更多 -->
+        <div v-if="isShowlist" class="more" @click="more">
+            显示更多
+        </div>
     </div>
 </template>
 
@@ -36,6 +40,7 @@ import {mapState} from 'vuex'
             return {
                 // navlist:[],
                 nav_now:{
+                    pageNo: 1,
                     state:'',
                     type:'',
                     country:'',
@@ -67,9 +72,9 @@ import {mapState} from 'vuex'
             },
             choice(style,value){
                 this.nav_now[style]=value;
+                this.nav_now.pageNo=1;
                 $.get('/api/video/searchByES',{
                     params:{
-                        pageNo: 1,
                         pageSize: 10,
                         ...this.nav_now
                     }
@@ -85,6 +90,27 @@ import {mapState} from 'vuex'
                         this.listdata=[]
                     }
                     // console.log(this.listdata)
+                }.bind(this))
+            },
+            more(){//获取下一页数据，push进当前列表数组
+                this.nav_now.pageNo++;
+                // console.log(this.nav_now)
+                $.get('/api/video/searchByES',{
+                    params:{
+                        pageSize: 10,
+                        ...this.nav_now
+                    }
+                })
+                .then(function(result){
+                    if(result.data.message=="获取记录成功"){
+                        result.data.data.list.forEach(function(item){
+                           item.photos=JSON.parse(item.photos)
+                        });
+                        // console.log()
+                        this.listdata=this.listdata.concat(result.data.data.list)
+                    }else{
+                        this.listdata=[]
+                    }
                 }.bind(this))
             }
         },
@@ -102,7 +128,7 @@ import {mapState} from 'vuex'
     }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 @import '@/yo/core/reset.scss';
 .category{
     height: 100%;
@@ -153,6 +179,17 @@ import {mapState} from 'vuex'
             margin-top: .2rem;
             font-size: .14rem;
         }
+    }
+    .more{
+        border: 1px solid #3f7cc1;
+        border-radius: 100px;
+        font-size: .12rem;
+        color: #3f7cc1;
+        margin: .15rem auto;
+        width: .8rem;
+        height: .28rem;
+        text-align: center;
+        line-height: .28rem;
     }
 
 }

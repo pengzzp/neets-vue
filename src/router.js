@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import download from './views/mobile-download.vue'
 import index from './views/index.vue'
 import search from './views/search.vue'
+import signin from './views/signin.vue'
 // ----------------------------
 import layout from './components/common/layout.vue'
 import detail from './components/common/detail.vue'
@@ -71,6 +72,11 @@ export default new Router({
       path: '/mobile-download',
       name: 'mobile-download',
       component: download
+    },
+    {
+      path: '/signin',
+      name: 'signin',
+      component: signin
     }
 
   ]
