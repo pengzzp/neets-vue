@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="layout">
         <!-- 导航 -->
         <nav>
             <router-link 
@@ -11,8 +11,10 @@
             </router-link>
         </nav>
         <!-- 切换的页面 -->
-        <div>
-        <router-view></router-view>
+        <div class="main">
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
         </div>
     </div>
 </template>
@@ -48,12 +50,18 @@
 
 <style lang="scss" scoped>
 @import '@/yo/core/reset.scss';
+.layout{
+    flex: 1;
+    @include flexbox();
+    flex-direction: column;
     nav{
         width: 100%;
         height: .4rem;
         line-height: .4rem;
+        position: relative;
+        z-index: 1;
         background-color: #f4f5f6;
-        box-shadow: 0 1px 3px #aaa;
+        box-shadow: 0 1px 5px #aaa;
         font-size: .16rem;
         @include flexbox();
         a{
@@ -67,4 +75,9 @@
             }
         }
     }
+    .main{
+        flex: 1;
+        overflow-y: auto;
+    }
+}
 </style>
