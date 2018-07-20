@@ -1,9 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <div>
-
-    </div>
-=======
     <ul class="list">
         <li v-for="(v,i) of listdata" :key="i" class="item">
             <img :src="v.photos.large" alt="">
@@ -18,13 +13,10 @@
             </a>
         </li>
     </ul>
->>>>>>> 48a51e3b0c05270bd0aca6e744dd24abf3ee4d8d
 </template>
 
 <script>
     export default {
-<<<<<<< HEAD
-=======
         name:'List',
         props: {
             listdata:{
@@ -42,14 +34,10 @@
            
                
         }
->>>>>>> 48a51e3b0c05270bd0aca6e744dd24abf3ee4d8d
         
     }
 </script>
 
-<<<<<<< HEAD
-<style scoped>
-=======
 <style lang="scss" scoped>
 @import '@/yo/core/reset.scss';
 .list{
@@ -106,6 +94,5 @@
 
     }
 }
->>>>>>> 48a51e3b0c05270bd0aca6e744dd24abf3ee4d8d
 
 </style>
