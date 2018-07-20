@@ -3,7 +3,7 @@
         <li v-for="(v,i) of listdata" :key="i" class="item">
             <img :src="v.photos.large" alt="">
             <div class="info">
-                <div><i>{{v.title}}</i><span>{{v.rating}}</span></div>
+                <div><i>{{v.title}}</i><span v-show="v.rating">{{v.rating}}</span></div>
                 <div>订阅<span>{{v.hot}}</span></div>
                 <div>更新至<span>{{v.currentSeries}}</span></div>
             </div>
