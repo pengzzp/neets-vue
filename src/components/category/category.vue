@@ -54,13 +54,16 @@ import {mapState} from 'vuex'
         components:{
             List
         },
+        beforeMount(){
+            
+        },
         mounted(){
             // $.get('/api/video/allCategories')
             // .then((result)=>{
             //     this.navlist=JSON.parse(result.data.data)
             // })
             //我把列表数据放入了vuex中,在index.vue中获取
-            
+            this.listdata=this.$store.state.defaultlist        
         },
         updated(){
             // console.log(this.isShowlist)

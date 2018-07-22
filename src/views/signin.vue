@@ -42,9 +42,13 @@ import $ from 'axios';
                 $.post(`/sms/send/${value}`)
                 .then(function(result){
                     this.randomKey=result.data.randomKey
+                    this.popupVisible=true
+                    this.popvalue="动态密码发送成功，请注意查收"
+                    setInterval(function(){
+                        this.popupVisible=false
+                    }.bind(this),2000)
                 }.bind(this))
             },
-            // 18354273032
             login(phone,smsCode){
                 if(this.randomKey){
                     // console.log(1)
@@ -54,7 +58,15 @@ import $ from 'axios';
                         randomKey:this.randomKey
                     }).then(function(result){
                         console.log(result)
-                        console.log("登录成功")
+                        // console.log("登录成功")
+                        localStorage.setItem('neets_user',result.data.token)
+                        localStorage.setItem('username',result.data.phone)
+                        this.$router.push({
+                            name:'my',
+                            params:{
+                                username:result.data.phone
+                            }
+                        })
                     }.bind(this))
                     .catch(function(){
                         this.popupVisible=true

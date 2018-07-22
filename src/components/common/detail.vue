@@ -134,12 +134,6 @@ import { Button } from "mint-ui";
 import List from '../common/list.vue';
 export default {
   name: "detail",
-  props:{
-    id: {
-        type: String,
-        required: true
-      },
-  },
   data() {
     return {
       detail: {},
@@ -154,6 +148,7 @@ export default {
       isShowlist:true,
       isNewDramaShow:true,
       imgCondition:true,
+      id:this.$route.params.id
     };
   },
   components: {

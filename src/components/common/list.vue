@@ -1,6 +1,6 @@
 <template>
     <ul class="list">
-        <li v-for="(v,i) of listdata" :key="i" class="item">
+        <li v-for="(v,i) of listdata" :key="i" class="item" @click="todetail(v.id)">
             <img :src="v.photos.large" alt="">
             <div class="info">
                 <div><i>{{v.title}}</i><span v-show="v.rating">{{v.rating}}</span></div>
@@ -24,15 +24,21 @@
             }
         },
         created(){
-            
-        },
-        mounted(){
-            
+            // console.log(this.$store.state.defaultlist);
+            // console.log(this.listdata)
         },
         updated(){
-            // console.log(this.listdata)
-           
-               
+            console.log(this.listdata)   
+        },
+        methods:{
+            todetail(id){
+                this.$router.push({
+                    name:'detail',
+                    params:{
+                        id
+                    }
+                })
+            }
         }
         
     }

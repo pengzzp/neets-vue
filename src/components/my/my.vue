@@ -1,9 +1,41 @@
 <template>
     <div class="my">
-        <div class="null">
+        <div class="null" v-if="!isSignin">
             <img src="../../assets/images/null.gif" alt="">
             <p>登录了才能查看</p>
             <a class="signin" @click="signin">登录</a>
+        </div>
+        <div v-else class="userinfo">
+            <div class="top">
+                <img src="../../assets/images/headimg.jpg" alt="">
+                <p>{{username}}</p>
+            </div>
+            <div class="qingdan">
+                <h2>清单</h2>
+                <div>
+                    <i></i>
+                    <span>订阅</span>
+                    <p><span></span>条内容</p>
+                </div>
+                <div>
+                    <i></i>
+                    <span>已看完</span>
+                    <p><span></span>条内容</p>
+                </div>
+                <div>
+                    <i></i>
+                    <span>我的清单</span>
+                    <p><span></span>条内容</p>
+                </div>
+            </div>
+            <div class="zuji">
+                <h2>足迹</h2>
+                <div>
+                    <i></i>
+                    <span>足迹</span>
+                    <p><span></span>条内容</p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -11,6 +43,26 @@
 <script>
     export default {
         name:'my',
+        data() {
+            return {
+                isSignin:false
+            }
+        },
+        created(){
+            if(localStorage.getItem('neets_user')){
+                this.isSignin=true;
+            }
+            else{
+                this.isSignin=false;
+            }
+        },
+        mounted(){
+            // if(localStorage.getItem('neets_user')){
+            //     this.isSignin=true
+            // }else{
+            //     this.isSignin=false
+            // }
+        },
         methods:{
             signin(){
                 this.$router.push({
@@ -19,6 +71,11 @@
                     // uri: this.movietype
                     // }
                 })
+            }
+        },
+        computed:{
+            username(){
+                return localStorage.getItem('username')
             }
         }
     }
@@ -53,6 +110,56 @@
         color: #ffa200;
         font-size: .14rem;
         display: inline-block;
+    }
+    .userinfo{
+        .top{
+            width: 100%;
+            height: 1.47rem;
+            background: #ffde02;
+            line-height: .147rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            img{
+                width: .7rem;
+                height: .7rem;
+                border-radius: 100%;
+            }
+            p{
+                color: #6e4902;
+                text-align: center;
+                padding-top: .1rem;
+                font-size: .18rem;
+            }
+        }
+        .qingdan,.zuji{
+            h2{
+                color: #555;
+                font-size: .16rem;
+                line-height: 1;
+                height: .4rem;
+                line-height: .4rem;
+            }
+            >div{
+                height: .6rem;
+                width: 100%;
+                background:white;
+                border-bottom: 1px solid #eee;
+                display: flex;
+                align-items: center;
+                i{
+                    width: .25rem;
+                    height: .25rem;
+                    vertical-align: middle;
+                    background: url('../../assets/images/bg.png');
+                    background-size: 180px auto;
+                    display: inline-block;
+                    margin-right: .1rem;
+                    background-position: -90px -597px;
+                }
+            }
+        }
     }
 }
 
