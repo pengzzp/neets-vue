@@ -54,13 +54,29 @@ import {mapState} from 'vuex'
         components:{
             List
         },
+        beforeMount(){
+            // this.$store.dispatch('get_defaultlist')
+        },
         mounted(){
             // $.get('/api/video/allCategories')
             // .then((result)=>{
             //     this.navlist=JSON.parse(result.data.data)
             // })
             //我把列表数据放入了vuex中,在index.vue中获取
-            
+            $.get('/api/video/searchByES',{
+                params:{
+                    pageSize: 10,
+                    ...this.nav_now
+                }
+            })
+            .then((result)=>{
+                if(result.data.message=="获取记录成功"){
+                    result.data.data.list.forEach(function(item){
+                    item.photos=JSON.parse(item.photos)
+                    });
+                    this.listdata=result.data.data.list
+                }
+            })
         },
         updated(){
             // console.log(this.isShowlist)
@@ -116,6 +132,9 @@ import {mapState} from 'vuex'
         },
         computed:{
             ...mapState(['navlist']),
+            // listdata(){
+            //     return this.listdata
+            // },
             isShowlist(){
                 // if(this.listdata!==[]){
                 //     return false

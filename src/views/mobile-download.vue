@@ -166,15 +166,15 @@ export default {
           .mint-swipe-item {
             height: 6.67rem !important;
             position: absolute;
-            // .card_bg {
-            //   width: 100%;
-            //   height: 100%;
-            //   > img {
-            //     width: 3.73rem;
-            //     height: 6.67rem;
-            //     background-size: cover;
-            //   }
-            // }
+            .card_bg {
+              width: 100%;
+              height: 100%;
+              > img {
+                width: 3.73rem;
+                height: 6.67rem;
+                background-size: cover;
+              }
+            }
             .card {
               position: absolute;
               width: 80%;

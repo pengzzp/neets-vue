@@ -1,11 +1,11 @@
 <template>
     <ul class="list">
-        <li v-for="(v,i) of listdata" :key="i" class="item">
+        <li v-for="(v,i) of listdata" :key="i" class="item" @click="todetail(v.id)">
             <img :src="v.photos.large" alt="">
             <div class="info">
                 <div><i>{{v.title}}</i><span v-show="v.rating">{{v.rating}}</span></div>
                 <div>订阅<span>{{v.hot}}</span></div>
-                <div>更新至<span>{{v.currentSeries}}</span></div>
+                <div><span>{{v.currentSeries>0?"更新至"+v.currentSeries:"0集全"}}</span></div>
             </div>
             <a href="">
                 <i>+</i>
@@ -24,15 +24,19 @@
             }
         },
         created(){
-            
+            // console.log(this.$store.state.defaultlist);
         },
-        mounted(){
-            
+        updated(){  
         },
-        updated(){
-            // console.log(this.listdata)
-           
-               
+        methods:{
+            todetail(id){
+                this.$router.push({
+                    name:'detail',
+                    params:{
+                        id
+                    }
+                })
+            }
         }
         
     }
@@ -63,6 +67,11 @@
             >div{
                 span{
                     margin-left: 5px;
+                }
+            }
+            >div:last-child{
+                span{
+                    margin-left: 0;
                 }
             }
             >div:first-child{

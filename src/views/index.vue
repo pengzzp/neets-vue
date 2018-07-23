@@ -3,7 +3,9 @@
     <!-- 头部 -->
     <Top></Top>
     <!-- 主界面 -->
+    <keep-alive>
     <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -16,6 +18,7 @@ import Top from '../components/common/top.vue'
     },
     mounted(){
       this.$store.dispatch('get_navlist')
+      // this.$store.dispatch('get_defaultlist')
     }
   }
 </script>

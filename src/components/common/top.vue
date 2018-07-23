@@ -11,9 +11,9 @@
         <mt-popup v-model="popupVisible" position="left" class="Popup">
             <section class="top">
                 <div><img src="../../assets/images/headimg.jpg" alt=""></div>
-                <div v-show="isSignin">zzp</div>
                 <div v-show="!isSignin" class="login">立即登录</div>
                 <p v-show="!isSignin">登录解锁更多精彩功能</p>
+                <div v-show="isSignin">zzp</div>
             </section>
 
             <div>
@@ -64,13 +64,21 @@
         </div>
     </header>
 </template>
- 
+
 <script>
     export default {
         data(){
             return{
                 popupVisible:false,
                 isSignin:false
+            }
+        },
+        created(){
+            if(localStorage.getItem('neets_user')){
+                this.isSignin=true;
+            }
+            else{
+                this.isSignin=false;
             }
         },
         updated() {
