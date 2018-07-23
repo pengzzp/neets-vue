@@ -7,7 +7,7 @@
                 <div>订阅<span>{{v.hot}}</span></div>
                 <div><span>{{v.currentSeries>0?"更新至"+v.currentSeries:"0集全"}}</span></div>
             </div>
-            <a href="">
+            <a href="" >
                 <i>+</i>
                 <span>订阅</span>
             </a>
@@ -21,12 +21,29 @@
         props: {
             listdata:{
                 type: Array
+            },
+        },
+        data() {
+            return {
+                
             }
         },
         created(){
             // console.log(this.$store.state.defaultlist);
+            // console.log(this.props.isShowButton)
         },
         updated(){  
+        },
+        computed: {
+            
+            // buttonBackground() {
+            //     if(this.props.showButton == "no"){
+            //         return 'white'
+            //     }else{
+            //         return '#59c4f9'
+            //     }
+                    
+            // }
         },
         methods:{
             todetail(id){

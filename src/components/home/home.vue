@@ -15,7 +15,7 @@
         </div>
         <div v-else class="mySubscirber">
             <p>我的订阅</p>
-            <List v-if="isShowlist" :listdata="recentLists" />
+            <List v-if="isShowlist" :listdata="recentLists"  />
         </div>
         <div class="newDrama">
             <p>新剧开播</p>
@@ -49,6 +49,7 @@ import {mapState} from 'vuex'
                 endRecommendation:[],
                 isShowlist:true,
                 isSignin:false,
+                isShowButton:false,
                 titles:[
                     {
                         title:'美剧',
