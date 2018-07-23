@@ -13,17 +13,17 @@
             <div class="qingdan">
                 <h2>清单</h2>
                 <div>
-                    <i></i>
+                    <i style="background-position: -90px -597px;"></i>
                     <span>订阅</span>
                     <p><span></span>条内容</p>
                 </div>
                 <div>
-                    <i></i>
+                    <i style="background-position: -120px -597px;"></i>
                     <span>已看完</span>
                     <p><span></span>条内容</p>
                 </div>
                 <div>
-                    <i></i>
+                    <i style="background-position: -150px -597px;"></i>
                     <span>我的清单</span>
                     <p><span></span>条内容</p>
                 </div>
@@ -31,7 +31,7 @@
             <div class="zuji">
                 <h2>足迹</h2>
                 <div>
-                    <i></i>
+                    <i style="background-position: -90px -631px;"></i>
                     <span>足迹</span>
                     <p><span></span>条内容</p>
                 </div>
@@ -137,9 +137,10 @@
             h2{
                 color: #555;
                 font-size: .16rem;
-                line-height: 1;
                 height: .4rem;
-                line-height: .4rem;
+                line-height:.4rem;
+                padding-left: .1rem;
+                font-weight: normal;
             }
             >div{
                 height: .6rem;
@@ -148,6 +149,8 @@
                 border-bottom: 1px solid #eee;
                 display: flex;
                 align-items: center;
+                position: relative;
+                padding: 0 .1rem;
                 i{
                     width: .25rem;
                     height: .25rem;
@@ -156,7 +159,16 @@
                     background-size: 180px auto;
                     display: inline-block;
                     margin-right: .1rem;
-                    background-position: -90px -597px;
+                }
+                >span{
+                    color: #555;
+                    font-size: .16rem;
+                }
+                p{
+                    position: absolute;
+                    right: .1rem;
+                    color: #888;
+                    font-size: .12rem;
                 }
             }
         }

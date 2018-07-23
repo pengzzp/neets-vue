@@ -18,7 +18,7 @@ import Top from '../components/common/top.vue'
     },
     mounted(){
       this.$store.dispatch('get_navlist')
-      this.$store.dispatch('get_defaultlist')
+      // this.$store.dispatch('get_defaultlist')
     }
   }
 </script>

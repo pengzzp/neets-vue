@@ -17,7 +17,7 @@ export default new Vuex.Store({
     },
     set_defaultlist(state,payload){
       state.defaultlist=payload
-    },
+    }
   },
 // --------------------------------------------------
   actions: {
