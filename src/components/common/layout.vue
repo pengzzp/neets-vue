@@ -1,4 +1,5 @@
 <template>
+<keep-alive>
     <div class="layout">
         <!-- 导航 -->
         <nav>
@@ -17,8 +18,8 @@
             </keep-alive>
         </div>
     </div>
+</keep-alive>
 </template>
-
 <script>
     export default {
         name:'layout',

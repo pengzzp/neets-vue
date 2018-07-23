@@ -32,22 +32,38 @@
 <script>
 import $ from 'axios';
 import List from '../common/list.vue';
-import {mapState} from 'vuex'
+import {mapState} from 'vuex';
 
     export default {
         name:'category',
+        props: {
+            nav_now: {
+                type: Object,
+                default:function(){
+                    return {
+                        pageNo: 1,
+                        state:'',
+                        type:'',
+                        country:'',
+                        week:'',
+                        year:'',
+                        order:'1'
+                    }
+                }
+            },
+        },
         data() {
             return {
                 // navlist:[],
-                nav_now:{
-                    pageNo: 1,
-                    state:'',
-                    type:'',
-                    country:'',
-                    week:'',
-                    year:'',
-                    order:'1'
-                },
+                // nav_now:{
+                //     pageNo: 1,
+                //     state:'',
+                //     type:'',
+                //     country:'',
+                //     week:'',
+                //     year:'',
+                //     order:'1'
+                // },
                 listdata:[]
             }
         },

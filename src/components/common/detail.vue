@@ -139,8 +139,7 @@ export default {
       isSeriesShow:true,
       isShowlist:true,
       isNewDramaShow:true,
-      imgCondition:true,
-      id:this.$route.params.id
+      imgCondition:true
     };
   },
   components: {
@@ -158,6 +157,9 @@ export default {
     },
     getDate(){
       return new Date().getTime();
+    },
+    id(){
+      return this.$route.params.id
     }
   },
   methods: {
@@ -178,7 +180,7 @@ export default {
       })
     },
   },
-  mounted() {
+  mounted(){
     // --------------视频详细信息
     $.get("api/video/detail/"+this.id+"").then(result => {
       this.detail = result.data.data;

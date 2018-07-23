@@ -47,7 +47,10 @@ export default new Router({
             {
               path:'category',
               name:'category',
-              component:category
+              component:category,
+              meta:{
+                keepAlive: true
+              }
             },
             {
               path:'my',
@@ -59,7 +62,10 @@ export default new Router({
         {
           path:'detail',
           name:'detail',
-          component:detail
+          component:detail,
+          meta:{
+            keepAlive: false
+          }
         }
       ]
     },
