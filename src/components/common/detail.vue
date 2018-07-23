@@ -113,16 +113,7 @@
             <List v-if="isShowlist" :listdata="listdata" style="background:transparent"/>
             <p><router-link to="/index/layout/category">查看全部››</router-link></p>
           </div>
-          <div class="neetsInfo">
-            <div class="infoTitle">关注 Neets 公众号，新剧更新抢鲜看</div>
-            <div class="infoImg">
-              <img src="https://neets.cc/script/app/resource/images/erweima.jpg" alt="">
-            </div>
-            <div class="wechat">
-              <span>公众号 neets</span><span>微信号 neetscc</span>
-            </div>
-            <div class="browser">浏览器访问 www.neets.cc</div>
-          </div>
+          <Bottom/>
         </div>
       </main>
     </div>
@@ -132,6 +123,7 @@
 import $ from "axios";
 import { Button } from "mint-ui";
 import List from '../common/list.vue';
+import Bottom from '../common/bottom.vue';
 export default {
   name: "detail",
   data() {
@@ -154,6 +146,7 @@ export default {
   components: {
     [Button.name]: Button,
     List,
+    Bottom,
   },
   computed: {
     isfinished() {
@@ -190,7 +183,6 @@ export default {
     $.get("api/video/detail/"+this.id+"").then(result => {
       this.detail = result.data.data;
       this.imgUrl = JSON.parse(result.data.data.photos);
-      console.log(this.imgUrl)
     });
     // --------------视频合集
     $.get("https://neets.cc/api/videoSource/list/1/5?adapteType=0&enable=3&num=-1&videoId="+this.id+"&filter=1").then(result => {
@@ -610,44 +602,6 @@ export default {
           a{
             color: #3f7cc1;
           }
-        }
-      }
-      .neetsInfo{
-        width: 3rem;
-        margin: .3rem auto;
-        color: #888;
-        text-align: center;
-        .infoTitle{
-          font-size: .14rem;
-          line-height: .2rem;
-          margin: 0 auto .125rem;
-        }
-        .infoImg{
-          width: 100%;
-          box-shadow: 0 1px 4px #b0b0b0;
-          border-radius: .02rem;
-          margin-bottom: .12rem;
-          overflow: hidden;
-          img{
-            width: 100%;
-          }
-        }
-        .wechat{
-          font-size: .12rem;
-          span{
-            display: inline-block;
-            width: .9rem;
-            line-height: .15rem;
-            font-size: .12rem;
-            &:nth-of-type(2){
-              margin-left: .2rem;
-            }
-          }
-        }
-        .browser{
-          margin-top: .06rem;
-          font-size: .12rem;
-          line-height: .15rem;
         }
       }
     }
