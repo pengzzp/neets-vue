@@ -10,10 +10,14 @@
                 <router-link to=""><li><div></div>全部</li></router-link>
             </ul>
         </div>
-        <div class="signin">
+        <div class="signin" v-if="!isSignin">
             <router-link to="/index/layout/my">
                 <img src="../../assets/images/img_login.png" alt="">
             </router-link>
+        </div>
+        <div v-else class="mySubscirber">
+            <p>我的订阅</p>
+            <List v-if="isShowlist" :listdata="recentLists" />
         </div>
         <div class="newDrama">
             <p>新剧开播</p>
@@ -35,16 +39,18 @@
 </template>
 
 <script>
-    import List from '../common/list.vue'
-    import Bottom from '../common/bottom.vue'
-    import Contact from '../common/contact.vue'
-    import $ from "axios";
+import List from '../common/list.vue'
+import Bottom from '../common/bottom.vue'
+import Contact from '../common/contact.vue'
+import $ from "axios";
+import {mapState} from 'vuex'
     export default {
         data() {
             return {
                 newDrama:[],
                 endRecommendation:[],
                 isShowlist:true,
+                isSignin:false,
             }
         },
         components: {
@@ -53,13 +59,25 @@
             Contact,
         },
         computed: {
-            
+            ...mapState(['recentLists']),
         },
         methods: {
             handleClickSignin(){
 
             },
 
+        },
+        created(){
+            if(localStorage.getItem('neets_user')){
+                this.isSignin=true;
+            }
+            else{
+                this.isSignin=false;
+            }
+            // console.log(this.$store.state.recentLists)
+            this.$store.state.recentLists.forEach(function(item){
+                item.photos=JSON.parse(item.photos)
+            });
         },
         mounted() {
             $.get('https://neets.cc/api/video/recommend/1/6').then(result => {
@@ -149,6 +167,16 @@
         margin-top: .2rem;
         img{
             width: 100%;
+        }
+    }
+    .mySubscirber{
+        p{
+            font-size: .16rem;
+            color: #111;
+            margin-left: .15rem;
+            margin-top: .2rem;
+            margin-bottom: .05rem;
+            line-height: 1;
         }
     }
     .newDrama{
