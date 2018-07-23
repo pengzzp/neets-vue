@@ -3,11 +3,9 @@
         <Contact/>
         <div class="navBox">
             <ul>
-                <router-link to=""><li><div></div>美剧</li></router-link>
-                <router-link to=""><li><div></div>韩剧</li></router-link>
-                <router-link to=""><li><div></div>日剧</li></router-link>
-                <router-link to=""><li><div></div>动漫</li></router-link>
-                <router-link to=""><li><div></div>全部</li></router-link>
+                <router-link to="/index/layout/category"  v-for="(v,i) in titles" :key="v.id" :navList="navList[i]">
+                    <li><div></div>{{ v.title }}</li>
+                </router-link>
             </ul>
         </div>
         <div class="signin" v-if="!isSignin">
@@ -51,6 +49,75 @@ import {mapState} from 'vuex'
                 endRecommendation:[],
                 isShowlist:true,
                 isSignin:false,
+                titles:[
+                    {
+                        title:'美剧',
+                        id:'01'
+                    },
+                    {
+                        title:'韩剧',
+                        id:'02'
+                    },
+                    {
+                        title:'日剧',
+                        id:'03'
+                    },
+                    {
+                        title:'动漫',
+                        id:'04'
+                    },
+                    {
+                        title:'全部',
+                        id:'05'
+                    },
+                ],
+                navList:[
+                    {
+                        pageNo: 1,
+                        state:'',
+                        type:'tv',
+                        country:'america',
+                        week:'',
+                        year:'',
+                        order:'1'
+                    },
+                    {
+                        pageNo: 1,
+                        state:'',
+                        type:'tv',
+                        country:'korea',
+                        week:'',
+                        year:'',
+                        order:'1'
+                    },
+                    {
+                        pageNo: 1,
+                        state:'',
+                        type:'tv',
+                        country:'japan',
+                        week:'',
+                        year:'',
+                        order:'1'
+                    },
+                    {
+                        pageNo: 1,
+                        state:'',
+                        type:'animation',
+                        country:'',
+                        week:'',
+                        year:'',
+                        order:'1'
+                    },
+                    {
+                        pageNo: 1,
+                        state:'',
+                        type:'',
+                        country:'',
+                        week:'',
+                        year:'',
+                        order:'1'
+                    },
+                ]
             }
         },
         components: {
@@ -60,6 +127,7 @@ import {mapState} from 'vuex'
         },
         computed: {
             ...mapState(['recentLists']),
+
         },
         methods: {
             handleClickSignin(){
