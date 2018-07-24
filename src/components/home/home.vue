@@ -3,7 +3,7 @@
         <Contact/>
         <div class="navBox">
             <ul>
-                <router-link to="/index/layout/category"  v-for="(v,i) in titles" :key="v.id" :navList="navList[i]">
+                <router-link to="/index/layout/category"  v-for="(v,i) in titles" :key="v.id" @click.native="tocategory(i)">
                     <li><div></div>{{ v.title }}</li>
                 </router-link>
             </ul>
@@ -134,6 +134,9 @@ import {mapState} from 'vuex'
             handleClickSignin(){
 
             },
+            tocategory(i){
+                this.$store.commit('change',this.navList[i])
+            }
 
         },
         created(){

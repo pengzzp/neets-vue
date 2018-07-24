@@ -1,5 +1,4 @@
 <template>
-<keep-alive>
     <div class="layout">
         <!-- 导航 -->
         <nav>
@@ -13,12 +12,11 @@
         </nav>
         <!-- 切换的页面 -->
         <div class="main">
-            <keep-alive>
+            <!-- <keep-alive> -->
                 <router-view></router-view>
-            </keep-alive>
+            <!-- </keep-alive> -->
         </div>
     </div>
-</keep-alive>
 </template>
 <script>
     export default {

@@ -13,7 +13,7 @@
                     @click="choice(v.param,value.value)"
                     >
                     {{value.name}}
-                    <!-- :class="{active:value.value==nav_now.(v.param)}" -->
+                    <!-- :class="{active:value.value==navnow.(v.param)}" -->
                 </li>
             </ul> 
         </nav>
@@ -39,26 +39,26 @@ import {mapState} from 'vuex';
 
     export default {
         name:'category',
-        props: {
-            nav_now: {
-                type: Object,
-                default:function(){
-                    return {
-                        pageNo: 1,
-                        state:'',
-                        type:'',
-                        country:'',
-                        week:'',
-                        year:'',
-                        order:'1'
-                    }
-                }
-            },
-        },
+        // props: {
+        //     navnow: {
+        //         type: Object,
+        //         default:function(){
+        //             return {
+        //                 pageNo: 1,
+        //                 state:'',
+        //                 type:'',
+        //                 country:'',
+        //                 week:'',
+        //                 year:'',
+        //                 order:'1'
+        //             }
+        //         }
+        //     },
+        // },
         data() {
             return {
                 // navlist:[],
-                // nav_now:{
+                // navnow:{
                 //     pageNo: 1,
                 //     state:'',
                 //     type:'',
@@ -73,7 +73,7 @@ import {mapState} from 'vuex';
         components:{
             List
         },
-        beforeMount(){
+        created(){
             // this.$store.dispatch('get_defaultlist')
         },
         mounted(){
@@ -85,7 +85,7 @@ import {mapState} from 'vuex';
             $.get('/api/video/searchByES',{
                 params:{
                     pageSize: 10,
-                    ...this.nav_now
+                    ...this.navnow
                 }
             })
             .then((result)=>{
@@ -103,15 +103,15 @@ import {mapState} from 'vuex';
         methods:{
             isactive(param,value){
                 //根据当前状态，改变导航上的css状态的方法（这里的逻辑我想了大概一个小时~）
-                return this.nav_now[param]==value;
+                return this.navnow[param]==value;
             },
             choice(style,value){
-                this.nav_now[style]=value;
-                this.nav_now.pageNo=1;
+                this.navnow[style]=value;
+                this.navnow.pageNo=1;
                 $.get('/api/video/searchByES',{
                     params:{
                         pageSize: 10,
-                        ...this.nav_now
+                        ...this.navnow
                     }
                 })
                 .then(function(result){
@@ -128,12 +128,12 @@ import {mapState} from 'vuex';
                 }.bind(this))
             },
             more(){//获取下一页数据，push进当前列表数组
-                this.nav_now.pageNo++;
-                // console.log(this.nav_now)
+                this.navnow.pageNo++;
+                // console.log(this.navnow)
                 $.get('/api/video/searchByES',{
                     params:{
                         pageSize: 10,
-                        ...this.nav_now
+                        ...this.navnow
                     }
                 })
                 .then(function(result){
@@ -151,6 +151,7 @@ import {mapState} from 'vuex';
         },
         computed:{
             ...mapState(['navlist']),
+            ...mapState(['navnow']),
             // listdata(){
             //     return this.listdata
             // },

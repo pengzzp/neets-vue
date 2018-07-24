@@ -7,6 +7,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 // --------------------------------------------------
   state: {
+    navnow:{
+      pageNo: 1,
+      state:'',
+      type:'',
+      country:'',
+      week:'',
+      year:'',
+      order:'1'
+    },
     navlist:[],//分类页导航数据
     defaultlist:[],//列表组件默认数据
     recentLists:[//首页和订阅页数据
@@ -59,6 +68,9 @@ export default new Vuex.Store({
     },
     set_defaultlist(state,payload){
       state.defaultlist=payload
+    },
+    change(state,payload){
+      state.navnow=payload
     }
   },
 // --------------------------------------------------
