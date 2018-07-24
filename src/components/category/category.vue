@@ -1,6 +1,7 @@
 <template>
     <div class="category">
         <!-- 导航 -->
+        <keep-alive>
         <nav>
             <ul v-for="(v,i) of navlist" :key="i">
                 <li 
@@ -16,6 +17,8 @@
                 </li>
             </ul> 
         </nav>
+        </keep-alive>
+        
         <!-- 列表 -->
         <List v-if="isShowlist" :listdata="listdata"></List>
         <div v-else  class="null">

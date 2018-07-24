@@ -114,6 +114,7 @@
             <p><router-link to="/index/layout/category">查看全部››</router-link></p>
           </div>
           <Bottom/>
+          <Contact/>
         </div>
       </main>
     </div>
@@ -124,6 +125,7 @@ import $ from "axios";
 import { Button } from "mint-ui";
 import List from '../common/list.vue';
 import Bottom from '../common/bottom.vue';
+import Contact from '../common/contact.vue';
 export default {
   name: "detail",
   data() {
@@ -146,6 +148,7 @@ export default {
     [Button.name]: Button,
     List,
     Bottom,
+    Contact,
   },
   computed: {
     isfinished() {
