@@ -147,11 +147,15 @@ import {mapState} from 'vuex'
                 this.isSignin=false;
             }
             // console.log(this.$store.state.recentLists)
-            this.$store.state.recentLists.forEach(function(item){
-                item.photos=JSON.parse(item.photos)
-            });
         },
         mounted() {
+            //注释以下这一段是因为浏览器抛出warning：
+            //Error in created hook: "SyntaxError: Unexpected token o in JSON at position 1"
+            //原因：获取到的数据已经是对象类型，我又将其转换为对象类型；
+            //解决方法：把vuex里的数据写成对象～
+            // this.$store.state.recentLists.forEach(function(item){
+            //     item.photos=JSON.parse(item.photos)
+            // });
             $.get('https://neets.cc/api/video/recommend/1/6').then(result => {
               result.data.data.list.forEach(function(item){
                     item.photos=JSON.parse(item.photos)

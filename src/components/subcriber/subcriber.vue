@@ -22,9 +22,10 @@
                     <h5>共{{item.episodesCount}}集</h5>
                 </div>
             </div>
+            <p class="recentUpdateTitle">最近更新</p>
+            <list v-if="isShowlist" :listdata="recentUpdateLists" ></list>
         </div>
-        <p class="recentUpdateTitle">最近更新</p>
-        <list v-if="isShowlist" :listdata="recentUpdateLists" ></list>
+        
     </div>
 </template>
 
@@ -209,8 +210,7 @@ import {mapState} from 'vuex'
                 }
             }
         }
-    }
-    .recentUpdateTitle{
+        .recentUpdateTitle{
         @include flexbox();
         width: 100%;
         height: .53rem;
@@ -220,6 +220,8 @@ import {mapState} from 'vuex'
         background-color: #fff;
         padding: 0 .12rem;
     }
+    }
+    
 }
     
 </style>

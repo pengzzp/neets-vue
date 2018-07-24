@@ -57,7 +57,6 @@ import $ from 'axios';
                         smsCode,
                         randomKey:this.randomKey
                     }).then(function(result){
-                        console.log(result)
                         // console.log("登录成功")
                         localStorage.setItem('neets_user',result.data.token)
                         localStorage.setItem('username',result.data.phone)

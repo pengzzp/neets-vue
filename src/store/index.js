@@ -21,7 +21,7 @@ export default new Vuex.Store({
     recentLists:[//首页和订阅页数据
       {
         id:"EQZK1vYHJkrZ2nRaaPhixN",
-        photos:'{"small":"http://img.neets.cc/video/EQZK1vYHJkrZ2nRaaPhixN/small.png","large":"http://img.neets.cc/video/EQZK1vYHJkrZ2nRaaPhixN/large.jpg","medium":"http://img.neets.cc/video/EQZK1vYHJkrZ2nRaaPhixN/medium.png"}',
+        photos:{"small":"http://img.neets.cc/video/EQZK1vYHJkrZ2nRaaPhixN/small.png","large":"http://img.neets.cc/video/EQZK1vYHJkrZ2nRaaPhixN/large.jpg","medium":"http://img.neets.cc/video/EQZK1vYHJkrZ2nRaaPhixN/medium.png"},
         episodesCount:32,
         title:'过来抱抱我',
         state:1,
@@ -29,7 +29,7 @@ export default new Vuex.Store({
       },
       {
         id:"LHAhVjNbr8GicDsPn9Z1Er",
-        photos:'{"small":"http://img.neets.cc/video/LHAhVjNbr8GicDsPn9Z1Er/small.jpg","large":"http://img.neets.cc/video/LHAhVjNbr8GicDsPn9Z1Er/large.jpg","medium":"http://img.neets.cc/video/LHAhVjNbr8GicDsPn9Z1Er/medium.jpg"}',
+        photos:{"small":"http://img.neets.cc/video/LHAhVjNbr8GicDsPn9Z1Er/small.jpg","large":"http://img.neets.cc/video/LHAhVjNbr8GicDsPn9Z1Er/large.jpg","medium":"http://img.neets.cc/video/LHAhVjNbr8GicDsPn9Z1Er/medium.jpg"},
         episodesCount:3,
         title:'剧集版超能陆战队',
         state:1,
@@ -37,7 +37,7 @@ export default new Vuex.Store({
       },
       {
         id:"3b498111c26c4ff2ab9ada04727dd294",
-        photos:'{"small":"http://img.neets.cc/video/3b498111c26c4ff2ab9ada04727dd294/small.jpg","large":"http://img.neets.cc/video/3b498111c26c4ff2ab9ada04727dd294/large.jpg","medium":"http://img.neets.cc/video/3b498111c26c4ff2ab9ada04727dd294/medium.jpg"}',
+        photos:{"small":"http://img.neets.cc/video/3b498111c26c4ff2ab9ada04727dd294/small.jpg","large":"http://img.neets.cc/video/3b498111c26c4ff2ab9ada04727dd294/large.jpg","medium":"http://img.neets.cc/video/3b498111c26c4ff2ab9ada04727dd294/medium.jpg"},
         episodesCount:11,
         title:'逃避虽可耻但有用',
         state:1,
@@ -45,7 +45,7 @@ export default new Vuex.Store({
       },
       {
         id:"5b063067cd4b4e8cb63baec11151f850",
-        photos:'{"small":"http://img.neets.cc/video/5b063067cd4b4e8cb63baec11151f850/small.jpg","large":"http://img.neets.cc/video/5b063067cd4b4e8cb63baec11151f850/large.jpg","medium":"http://img.neets.cc/video/5b063067cd4b4e8cb63baec11151f850/medium.jpg"}',
+        photos:{"small":"http://img.neets.cc/video/5b063067cd4b4e8cb63baec11151f850/small.jpg","large":"http://img.neets.cc/video/5b063067cd4b4e8cb63baec11151f850/large.jpg","medium":"http://img.neets.cc/video/5b063067cd4b4e8cb63baec11151f850/medium.jpg"},
         episodesCount:11,
         title:'请回答1988',
         state:1,
@@ -53,7 +53,7 @@ export default new Vuex.Store({
       },
       {
         id:"7e8efa8ede784d349a3d4811e6cb1708",
-        photos:'{"small":"http://img.neets.cc/video/7e8efa8ede784d349a3d4811e6cb1708/small.jpg","large":"http://img.neets.cc/video/7e8efa8ede784d349a3d4811e6cb1708/large.jpg","medium":"http://img.neets.cc/video/7e8efa8ede784d349a3d4811e6cb1708/medium.jpg"}',
+        photos:{"small":"http://img.neets.cc/video/7e8efa8ede784d349a3d4811e6cb1708/small.jpg","large":"http://img.neets.cc/video/7e8efa8ede784d349a3d4811e6cb1708/large.jpg","medium":"http://img.neets.cc/video/7e8efa8ede784d349a3d4811e6cb1708/medium.jpg"},
         episodesCount:20,
         title:'小谢尔顿 第一季',
         state:1,

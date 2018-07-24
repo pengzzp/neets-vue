@@ -44,7 +44,7 @@
                 </a>
             </div>
             <div>
-                <a>
+                <a @click="handleCheckOut">
                     <i style="background-position: -151px -281px;"></i>
                     <span>退出登录</span>
                 </a>
@@ -87,6 +87,12 @@
         methods:{
             pop(){
                 this.popupVisible=!this.popupVisible; 
+            },
+            handleCheckOut(){
+                this.isSignin = false;
+                localStorage.removeItem('neets_user')
+                localStorage.removeItem('username')
+                this.popupVisible = false
             }
         }
     }
